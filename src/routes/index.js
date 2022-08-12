@@ -47,15 +47,20 @@ router.get('/shortened/date/:date', async(req, res)=> {
 
 router.post('/shorten', async (req, res)=>{
     const url = req.body.url;
-    const newUrl = generateUrl();
+    if(url == ''){
+        res.send(`URL inválida! 
+        <br/><br/>
+        <button><a href="/">Retornar a página principal</a></button>`);
+    } else {
+        const newUrl = generateUrl();
+        const result = await Schema.create({
+            url,
+            newUrl
+        });
 
-    const result = await Schema.create({
-        url,
-        newUrl
-    });
-
-    const formatedUrl = `localhost:${port}/${result.newUrl}`;
-    res.render('stats', { values: formatedUrl});
+        const formatedUrl = `localhost:${port}/${result.newUrl}`;
+        res.render('stats', { values: formatedUrl});
+    };  
 });
 
 module.exports = router;
