@@ -2,6 +2,8 @@ const express = require('express');
 const router = express();
 const bodyParser = require('body-parser');
 const Schema = require('../models/schema');
+
+const pageURL = process.env.URL || 'localhost';
 const port = process.env.PORT || 3000;
 
 router.use(bodyParser.urlencoded({extended: false}));
@@ -34,7 +36,7 @@ router.get('/shortened/:id', async(req, res)=> {
     const result = await Schema.findOne({ where: { id }});
     if (!result) return res.sendStatus(404);
     
-    const formatedUrl = `localhost:${port}/${result.newUrl}`;
+    const formatedUrl = `${pageURL}:${port}/${result.newUrl}`;
     res.render('stats', { values: formatedUrl});
 });
 
@@ -58,7 +60,7 @@ router.post('/shorten', async (req, res)=>{
             newUrl
         });
 
-        const formatedUrl = `localhost:${port}/${result.newUrl}`;
+        const formatedUrl = `${pageURL}:${port}/${result.newUrl}`;        
         res.render('stats', { values: formatedUrl});
     };  
 });
