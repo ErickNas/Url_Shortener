@@ -24,7 +24,7 @@ router.get('/:shortened', async(req, res)=> {
   
     const result = await Schema.findOne({ where: { newUrl } });
     if (!result) return res.sendStatus(404);
-  
+
     res.redirect(result.url);
 });
 

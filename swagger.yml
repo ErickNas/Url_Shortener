@@ -4,6 +4,31 @@ info:
   description: Encurta uma URL gigante em algo mais simples!
   version: 1.0
 paths:
+  /{url-code}:
+    get:
+      tags:
+        - search
+      summary: Redireciona para o link da URl original.
+      parameters:
+        - name: url-code
+          in: path
+          description: Código da URL encurtada
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Deu certo!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+        404:
+          description: Não encontrado!
+
   /shortened/{id}:
     get:
       tags:
