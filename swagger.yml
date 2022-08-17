@@ -1,0 +1,55 @@
+openapi: 3.0.1
+info:
+  title: API para Encurtar URL's
+  description: Encurta uma URL gigante em algo mais simples!
+  version: 1.0
+paths:
+  /shortened/{id}:
+    get:
+      tags:
+        - search
+      summary: Busca a URL associada a ID
+      parameters:
+        - name: id
+          in: path
+          description: ID a ser buscada
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: Deu certo!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+        404:
+          description: Não encontrado!
+
+  /shortened/date/{date}:
+    get:
+      tags:
+        - search
+      summary: Busca todas URL's encurtadas em uma determinada data
+      parameters:
+        - name: date
+          in: path
+          description: Data a ser consultada. Exemplo (17-8-2022).
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Deu certo!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+        404:
+          description: Não encontrado!
